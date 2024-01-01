@@ -1,7 +1,10 @@
+import { combineReducers } from "@reduxjs/toolkit";
 import { contactsReducer } from "./Contacts/contactsSlice";
 import { filterReducer } from "./Filter/filterSlice";
-import storage from 'redux-persist/lib/storage'
-export const reducer = {
+
+
+
+export const reducer = combineReducers({
     contacts: contactsReducer,
     filter: filterReducer
-}
+})

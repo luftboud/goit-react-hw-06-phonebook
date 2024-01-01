@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 // import { nanoid } from 'nanoid';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { Filter } from '../Filter/Filter';
@@ -57,27 +57,7 @@ const App = () => {
         el.name.toLowerCase().includes(filter.toLowerCase())); 
   }; //✅
   
-  // useEffect(() => {
-  //   console.log("mounted.");
-  //   const localContacts = localStorage.getItem('contacts');
-  //   const localContactsParsed = JSON.parse(localContacts);
-  //   if (localContactsParsed === null) {
-  //     console.log("no contacts parsed :( ");
-  //     return
-  //   }
-  //   if (localContactsParsed.length === 0 || localContactsParsed === null) {
-  //     console.log("no contacts saved.");
-  //     return
-  //   } else {
-  //     console.log("rendering contacts...");
-  //     // setContacts(localContactsParsed)
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   console.log("setting local storage...");
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
-  //
+
   return (    
       <div className={css.app}>
         <h1>Phonebook</h1>
