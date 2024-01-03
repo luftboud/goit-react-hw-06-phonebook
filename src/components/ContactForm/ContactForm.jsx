@@ -1,8 +1,18 @@
-import PropTypes from 'prop-types';
-import  { useState } from 'react';
-const ContactForm = ({ onSubmit }) => {
+
+import { useState } from 'react';
+import { addContactAction } from 'store/Contacts/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector((state) => state.contacts)
+  
+  const dispatch = useDispatch();
+  
+  const addContact = (cont) => {
+    dispatch(addContactAction(cont))
+  }
 
    const handleChange = evt => {
     const { name } = evt.target;
@@ -13,9 +23,24 @@ const ContactForm = ({ onSubmit }) => {
     if (name === "number") {
       setNumber(value)
     }
+   };
+  
+   const handleSubmit = (contName, phNumber) => {
+    const isAdded = contacts?.find(el => el.name === contName);
+    if (isAdded !== undefined) {
+      window.alert(
+        `Contact "${contName}" is already in your phonebook. Please, try something else!`
+      );
+      return
+    } 
+    if (contName === '' || phNumber === '') {
+      window.alert('Please, fill all fields.');
+      return
+    }
+    addContact({name: contName, number: phNumber})
   };
   return (
-    <form onSubmit={(e) => { e.preventDefault(); onSubmit(name, number);  e.target.reset()}}>
+    <form onSubmit={(e) => { e.preventDefault(); handleSubmit(name, number);  e.target.reset()}}>
       <h3>Name</h3>
       <input
         type="text"
@@ -31,7 +56,5 @@ const ContactForm = ({ onSubmit }) => {
     </form>
   );
 };
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+
 export { ContactForm };
